@@ -1,0 +1,41 @@
+.control button {
+  width: 5em;
+  margin: 1em;
+}
+
+.life {
+  display: flex;
+}
+
+.life > div {
+  flex: 1;
+}
+
+div.input {
+  display: inline-block;
+
+  margin: 2em;
+  border-style: groove;
+}
+
+.input .title {
+  font-size: 2em;
+}
+
+input {
+  margin-left: 1em;
+}
+
+label {
+  text-align: right;
+  display: block;
+  margin: 1em;
+}
+
+.paramschanged {
+  color: dimgray;
+}
+
+input[type="checkbox"] {
+  margin-right: 12em;
+}

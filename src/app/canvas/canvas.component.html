@@ -1,4 +1,35 @@
-<canvas #canvas width="800" height="800"></canvas>
-<div>
-  <button (click)="onClick()">click</button>
-</div>
+
+  <div style="float:left">
+    <canvas #canvas width="800" height="800"></canvas>
+  </div>
+  <div style="float:right">
+    <h1>John Conway's Game of Life</h1>
+    <div class="input">
+      <div class="title">Parameters</div>
+      <form (keyup.enter)="reset()">
+      <label>Cells:
+      <input #inputSize type="number" min="1" (input)="paramsChanged=true" value="{{size}}">
+      </label>
+      <label>Cell size:
+      <input #inputCellSize type="number" min="1" (input)="paramsChanged=true" value="{{cellSize}}">
+      </label>
+        <label>Seed:
+          <input #inputSeed type="text" (input)="paramsChanged=true">
+        </label>
+        <label>Border:
+          <input #inputBorder type="checkbox" (change)="draw()">
+        </label>
+        <label>Delay (ms):
+          <input #inputDelay type="number" value="{{delay}}" (input)="delay = +inputDelay.value">
+        </label>
+      </form>
+      <div class="paramschanged" [hidden]="!paramsChanged">Parameters changed. Reset to apply.</div>
+    </div>
+    <div class="control">
+      <button (click)="run()">{{running? 'Pause' : 'Run'}}</button>
+      <button (click)="step()">Step</button>
+      <button (click)="reset()">Reset</button>
+    </div>
+  </div>
+
+

@@ -1,25 +1,33 @@
+import * as assert from 'assert';
+
+
 export class GameOfLife {
-  life: number[][];
-  n: number;
+  size: number;
+  private life: number[][];
   private aux: number[][];
 
   constructor(n: number) {
-    this.n = n;
+    this.size = n;
     this.life = [...Array(n + 2)].map(x => [...Array(n + 2)].map(y => 0));
     this.aux = [...Array(n + 2)].map(x => [...Array(n + 2)].map(y => 0));
   }
 
+  cell(i: number, j: number): number {
+    // assert(i >= 0 && i < this.size && j >= 0 && j < this.size, `cell(${i}, ${j})`);
+    return this.life[j + 1][i + 1];
+  }
+
   random() {
-    for (let x = 1; x <= this.n; x += 1) {
-      for (let y = 1; y <= this.n; y += 1) {
+    for (let x = 1; x <= this.size; x += 1) {
+      for (let y = 1; y <= this.size; y += 1) {
         this.life[x][y] = Math.round(Math.random());
       }
     }
   }
 
   clearaux() {
-    for (let x = 0; x <= this.n + 1; x += 1) {
-      for (let y = 0; y <= this.n + 1; y += 1) {
+    for (let x = 0; x <= this.size + 1; x += 1) {
+      for (let y = 0; y <= this.size + 1; y += 1) {
         this.aux[x][y] = 0;
       }
     }
@@ -27,8 +35,8 @@ export class GameOfLife {
 
   step() {
     const indices: number[][] = [-1, 0, 1].map(i => [-1, 0, 1].map(j => [i, j])).flat().filter(([i, j]) => !(i === 0 && j === 0));
-    for (let x = 1; x <= this.n; x += 1) {
-      for (let y = 1; y <= this.n; y += 1) {
+    for (let x = 1; x <= this.size; x += 1) {
+      for (let y = 1; y <= this.size; y += 1) {
         if (this.life[x][y]) {
           indices.map(([i, j]) => {
             this.aux[x + i][y + j] += 1;
@@ -36,8 +44,8 @@ export class GameOfLife {
         }
       }
     }
-    for (let x = 1; x <= this.n; x += 1) {
-      for (let y = 1; y <= this.n; y += 1) {
+    for (let x = 1; x <= this.size; x += 1) {
+      for (let y = 1; y <= this.size; y += 1) {
         const cell = this.aux[x][y];
         if (cell === 3) {
           this.aux[x][y] = 1;
